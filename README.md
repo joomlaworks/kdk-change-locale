@@ -13,7 +13,8 @@ Download the repo and create a .zip archive. Install it like any other WordPress
 ## Requirements
 You need to have the desired languages installed in your WordPress site so the site's frontend (interface) properly switches to the correct language.
 
-## Usage
-Depending on the URL the plugin will change WP's frontend language to match the language of the content.
-
+## Modify
 Define extra languages in the '$languages' array.
+
+## To Do
+Add option to dynamically set the languages or backend UI to manually set the from the WP backend.
