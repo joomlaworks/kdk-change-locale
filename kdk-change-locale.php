@@ -35,22 +35,26 @@ function kdk_set_locale($locale)
     $url_path = $_SERVER['REQUEST_URI'];
     
     $languages = array(
-        'en' => 'en_US',
-        'de' => 'de_DE',
-        'fr' => 'fr_FR',
-        'es' => 'es_ES',
-        'ru' => 'ru_RU',
-        'el' => 'el_GR'
+        'en' => 'en_US', // US English
+        'de' => 'de_DE', // German
+        'fr' => 'fr_FR', // French
+        'es' => 'es_ES', // Spanish
+        'ru' => 'ru_RU', // Russian
+        'el' => 'el_GR'  // Greek
     );
     
-    if ($locale) {
-        return $locale;
+    $new_locale = '';
+    
+    foreach ($languages as $cat_slug => $lcl) {
+        if (substr($url_path, -3) == '/'.$cat_slug || stripos($url_path, '/'.$cat_slug.'/') !== false || (isset($_GET["lang"]) && $_GET["lang"] === $cat_slug)) {
+            $new_locale = $lcl;
+        }
     }
     
-    foreach ($languages as $cat_slug => $locale) {
-        if (substr($url_path, -3) == '/'.$cat_slug || stripos($url_path, '/'.$cat_slug.'/') !== false || (isset($_GET["lang"]) && $_GET["lang"] === $cat_slug)) {
-            return $locale;
-        }
+    if ($new_locale) {
+        return $new_locale;
+    } else {
+        return $locale;
     }
 }
 
