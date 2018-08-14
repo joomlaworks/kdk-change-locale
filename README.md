@@ -1,5 +1,4 @@
 # KDK Change Locale
-===
 
 ## Description
 Change a WordPress site's locale based on active category.
