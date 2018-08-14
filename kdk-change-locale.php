@@ -1,66 +1,57 @@
 <?php
 /*
-	Plugin Name: Kodeka Change Locale
-	Plugin URI:  https://kodeka.net
-	Description: Change the locale based on the active category
-	Version:     1.0
-	Author:      Kodeka
-	Author URI:  https://kodeka.net
-	License:     Commercial
+    Plugin Name: KDK Change Locale
+    Plugin URI:  https://github.com/joomlaworks/kdk-change-locale
+    Description: Change the site's locale based on active category
+    Version:     1.1
+    Author:      JoomlaWorks
+    Author URI:  https://www.joomlaworks.net
+    License:     GNU/GPL v2
 */
-defined( 'ABSPATH' ) or die( 'Move along' );
+defined('ABSPATH') or die('Move along');
 
 /**
- * Depending on the category change the locale of the site
+ * Change the site's locale based on active category
  *
- * @param $locale
- * @return the language locale for the frontend, the language needs to be already installed
- * @uses $_SERVER[HTTP_HOST] and $_SERVER[REQUEST_URI] in order to get the URL
- * @version 1.0
- * @link kodeka.net
+ * @param   $locale
+ * @return  the language locale for the frontend, the language needs to be already installed
+ * @uses    $_SERVER[HTTP_HOST] and $_SERVER[REQUEST_URI] in order to get the URL
+ * @version 1.1
+ * @link    https://github.com/joomlaworks/kdk-change-locale
  */
-
-add_filter('locale', 'kdk_set_locale', 10);
 
 function kdk_set_locale($locale)
 {
-		$current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-		$is_english  = strpos( $current_url , "/en");
-		$is_german   = strpos( $current_url , "/de");
-		$is_greek 	 = strpos( $current_url , "/el");
-		$is_spanish  = strpos( $current_url , "/es");
-		$is_russian	 = strpos( $current_url , "/ru");
-		$is_turkish	 = strpos( $current_url , "/tr");
-
-		if ( !is_admin() )
-		{
-			if ( $is_english !== false || ( isset($_GET["lang"]) && $_GET["lang"] === 'en' )  )
-			{
-				return 'en_US';
-			}
-			elseif( $is_greek !== false || ( isset($_GET["lang"]) && $_GET["lang"] === 'el' ) )
-			{
-				return 'el_GR';
-			}
-			elseif( $is_german !== false || ( isset($_GET["lang"]) && $_GET["lang"] === 'de' ) )
-			{
-				return 'de_DE';
-			}
-			elseif( $is_russian !== false || ( isset($_GET["lang"]) && $_GET["lang"] === 'ru' ) )
-			{
-				return 'ru_RU';
-			}
-			elseif( $is_spanish !== false || ( isset($_GET["lang"]) && $_GET["lang"] === 'es' ) )
-			{
-				return 'es_ES';
-			}
-			elseif( $is_turkish !== false || ( isset($_GET["lang"]) && $_GET["lang"] === 'tr' ) )
-			{
-				return 'tr_TR';
-			}
-			else
-			{
-				return $locale;
-			}
-		}
+    
+    // Don't execute in the backend
+    if (is_admin()) {
+        return;
+    }
+    
+    /*
+    $protocol = (stripos($_SERVER['SERVER_PROTOCOL'],'https') === true) ? 'https://' : 'http://';
+    $url_path = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    */
+    $url_path = $_SERVER['REQUEST_URI'];
+    
+    $languages = array(
+        'en' => 'en_US',
+        'de' => 'de_DE',
+        'fr' => 'fr_FR',
+        'es' => 'es_ES',
+        'ru' => 'ru_RU',
+        'el' => 'el_GR'
+    );
+    
+    if ($locale) {
+        return $locale;
+    }
+    
+    foreach ($languages as $cat_slug => $locale) {
+        if (substr($url_path, -3) == '/'.$cat_slug || stripos($url_path, '/'.$cat_slug.'/') !== false || (isset($_GET["lang"]) && $_GET["lang"] === $cat_slug)) {
+            return $locale;
+        }
+    }
 }
+
+add_filter('locale', 'kdk_set_locale', 10);
