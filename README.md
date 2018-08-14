@@ -17,4 +17,4 @@ You need to have the desired languages installed in your WordPress site so the s
 Define extra languages in the '$languages' array.
 
 ## To Do
-Add option to dynamically set the languages or backend UI to manually set the from the WP backend.
+Add option to dynamically set the languages based on installed language packs in WordPress or add a WP backend UI to manually set the languages.
