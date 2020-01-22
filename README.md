@@ -22,6 +22,7 @@ Define extra languages in the '$languages' array.
 ## To Do
 
 - Add option to dynamically set the languages based on installed language packs in WordPress or add a WP backend UI to manually set the languages.
+- Inject JS code to append ?lang=X to URLs without a category prefix (e.g. tags).
 
 
 ## Installation
