@@ -3,7 +3,7 @@
  * Plugin Name:  KDK Change Locale (by Kodeka)
  * Plugin URI:   https://github.com/kodeka/kdk_change_locale
  * Description:  Change the site's locale based on active category
- * Version:      1.1.0
+ * Version:      1.0.0
  * Author:       Kodeka
  * Author URI:   https://kodeka.io
  * License:      GNU/GPL https://www.gnu.org/copyleft/gpl.html

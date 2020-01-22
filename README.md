@@ -1,4 +1,4 @@
-# KDK Change Locale
+# KDK Change Locale (v1.0.0 / Jan 2020)
 
 ## Description
 
